@@ -1,0 +1,4 @@
+---
+# defaults file for httpdorapache2
+destin_folder: /var/www/html
+
