@@ -1,0 +1,37 @@
+---
+- name: My Playbook for Variables
+  hosts: all
+  become: yes
+
+
+  vars:
+    message1: Privet
+    message2: World
+    secret  : Xqaasdasdas
+
+  tasks:
+  
+  - name: Print Secret variable
+    debug: 
+      var: secret
+
+  - debug:
+      msg: "Secret word: {{ secret }}"
+
+  - debug:
+      msg: "Hostname etogo servera --> {{ ansible_hostname }} <--"
+
+  - set_fact: 
+      full_message: "{{ message1 }} {{ message2 }} from {{ ansible_hostname }} ip etogo servera --> {{ ansible_all_ipv4_addresses }} ->"
+
+  - debug:
+      var: full_message
+
+  - debug:
+      var: ansible_distribution
+
+  - shell: uptime
+    register: results
+
+  - debug:
+      var: results.stdout
