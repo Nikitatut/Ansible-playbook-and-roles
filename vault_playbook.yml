@@ -1,0 +1,29 @@
+---
+- name: Ansible Vault playbook
+  hosts: all
+  become: yes
+  
+  vars:
+    admin_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          66323137353730313639646565353565323865663836323931626139313138373633363564653938
+          3735613930643564363164316664346235636364333334380a383161373838316137393462653637
+          66623232613732373834393837386536636338626536353165613161333938643430643066376364
+          6333636134623435330a633165613633323366616237376130366564376562323366313738643133
+          3163
+
+  tasks:
+  - name: Install package tree
+    package:
+      name: tree
+      state: latest
+
+  - name: Create config file
+    copy:
+      dest: /home/ntyutikov/myconfig.conf
+      content: |
+        port = 9092
+        log = 7days
+        home = /opt/kafka/bin/
+        user = admin
+        password = {{ admin_password }}
