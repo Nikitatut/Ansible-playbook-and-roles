@@ -1,0 +1,30 @@
+---
+- name: Error handling playbook
+  hosts: all
+  become: yes
+# any_errors_fatal: true
+  tasks:
+  - name: Task Number 1
+    package:
+      name: testsssss
+      state: latest
+    ignore_errors: true
+
+  - name: Task Number 2
+    shell: ls -la /etc/
+    register: results
+    
+  - name: Task Number 2.3
+    shell: echo Hello from Ntyutikov
+    register: results_echo
+    failed_when: "'Ntyutikov' in results_echo.stdout"
+    
+  - debug:
+      var: results.stdout_lines
+
+  - debug:
+      var: results_echo
+
+  - name: Task Number 3
+    shell: echo Privet from Ntyutikov!
+
