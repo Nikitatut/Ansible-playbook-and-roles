@@ -1,0 +1,14 @@
+---
+- name: Include and import vars playbook
+  hosts: all
+  become: yes
+
+  vars:
+    mytext: "Privet ot Ntyutikov"
+
+  tasks:
+  - name: Ping test
+    ping:
+
+  - include: create_folders.yml
+  - include: create_files.yml mytext="Hello from nt"
